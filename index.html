@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f5f7">
+  <meta name="description" content="Codex Bridge 的使命：让每一台服务器，更轻松地用上 Codex。通过 SSH 端口转发使用 Mac 本机代理网络，重点支持 VS Code 远程 Codex 插件，也支持服务器上的 Codex CLI。">
+  <title>Codex Bridge — 让每一台服务器，更轻松地用上 Codex。</title>
+  <link rel="icon" href="assets/app-icon.png" type="image/png">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-bridge" viewBox="0 0 24 24"><path d="M4 19V5m16 14V5M4 7q8 14 16 0M4 18h16M9 13v5m6-5v5"/></symbol>
+    <symbol id="i-server" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="7" rx="2"/><rect x="4" y="14" width="16" height="7" rx="2"/><path d="M8 6.5h.01M8 17.5h.01M12 6.5h4M12 17.5h4"/></symbol>
+    <symbol id="i-laptop" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="13" rx="2"/><path d="m5 16-3 4h20l-3-4M10 20h4"/></symbol>
+    <symbol id="i-terminal" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="m7 9 3 3-3 3m6 0h4"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 7v5h-5M4 17v-5h5M6 7a7 7 0 0 1 12-1l2 6M4 12l2 6a7 7 0 0 0 12-1"/></symbol>
+    <symbol id="i-pulse" viewBox="0 0 24 24"><path d="M2 12h5l3-8 4 16 3-8h5"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M12 4v16m-6-6 6 6 6-6"/></symbol>
+  </svg>
+
+  <header class="site-header">
+    <nav class="nav container" aria-label="主导航">
+      <a class="brand" href="#main"><svg class="icon" aria-hidden="true"><use href="#i-bridge"/></svg>Codex Bridge</a>
+      <div class="nav-actions">
+        <a class="nav-link" href="#features">功能</a>
+        <a class="nav-link" href="#how">上手</a>
+        <a class="button button-small" href="#demo">在线体验 <span aria-hidden="true">↗</span></a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="mission-heading">
+      <div class="hero-copy container">
+        <div class="hero-icon" aria-hidden="true"><svg class="icon"><use href="#i-bridge"/></svg></div>
+        <p class="eyebrow">OUR MISSION · 我们的使命</p>
+        <h1 id="mission-heading">让每一台服务器，<br>更轻松地用上 <span class="nowrap">Codex。</span></h1>
+        <p class="hero-description">通过端口转发，把本机网络带到远方。<br>让你更快开始，把时间留给创造。</p>
+        <div class="hero-actions">
+          <a class="button" href="#features">看看它能做什么 <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <a class="text-link" href="#demo">体验连接 <span aria-hidden="true">›</span></a>
+        </div>
+        <p class="platform">原生 macOS · Apple Silicon · 开发中</p>
+      </div>
+
+      <div class="demo-wrap container" id="demo">
+        <div class="bridge-demo" data-state="idle">
+          <div class="demo-titlebar">
+            <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>Codex Bridge</span>
+            <span class="demo-badge">连接演示</span>
+          </div>
+          <div class="demo-content">
+            <div class="demo-heading"><span>本机能用的网络，带给远程的 Codex。</span><span class="connection-status" id="connection-status"><i></i><span>等待连接</span></span></div>
+            <div class="network" aria-label="Mac 本机代理通过 Codex Bridge 的 SSH 通道连接远程服务器">
+              <div class="network-node"><div class="node-icon"><svg class="icon" aria-hidden="true"><use href="#i-laptop"/></svg></div><strong>你的 Mac</strong><span>本机 HTTP / Mixed 代理</span></div>
+              <div class="network-line" aria-hidden="true"><span></span></div>
+              <div class="network-node bridge-node"><div class="node-icon"><svg class="icon" aria-hidden="true"><use href="#i-bridge"/></svg></div><strong>Codex Bridge</strong><span>SSH 端口转发</span></div>
+              <div class="network-line" aria-hidden="true"><span></span></div>
+              <div class="network-node"><div class="node-icon"><svg class="icon" aria-hidden="true"><use href="#i-server"/></svg></div><strong>远程服务器</strong><span>Codex 插件 / CLI</span></div>
+            </div>
+            <div class="demo-bottom"><p id="demo-message" role="status">少记几个端口，多写几行好代码。</p><button class="button demo-button" id="connect-button" type="button" hidden>试着连接 <span aria-hidden="true">↗</span></button></div>
+          </div>
+        </div>
+        <p class="demo-caption">交互示意，不会建立真实连接。实际使用需运行 App 并配置本机代理。</p>
+      </div>
+    </section>
+
+    <section class="features section container" id="features" aria-labelledby="features-heading">
+      <div class="section-heading"><p class="eyebrow">01 / 为你的工作方式而来</p><h2 id="features-heading">两种 Codex，同一座桥。</h2><p>代码留在服务器，继续使用你熟悉的工具。</p></div>
+      <div class="scenario-tabs" role="tablist" aria-label="Codex 使用方式" hidden>
+        <button id="tab-vscode" role="tab" aria-selected="true" aria-controls="panel-vscode" tabindex="0">VS Code 插件 <span class="priority-label">重点支持</span></button>
+        <button id="tab-cli" role="tab" aria-selected="false" aria-controls="panel-cli" tabindex="-1">Codex CLI</button>
+      </div>
+      <div class="scenario" id="panel-vscode" role="tabpanel" aria-labelledby="tab-vscode" tabindex="0">
+        <div class="scenario-copy"><span class="scenario-kicker">VS CODE REMOTE SSH</span><h3>远程窗口里，<br>Codex 也能顺畅对话。</h3><p>本机能用，远程却一直重试？让服务器上的 Codex 插件，通过 Mac 的本机代理连接网络。</p><div class="mode-instruction"><strong>选择「主要用 Codex」局部模式</strong><span>应用后，在远程 VS Code 执行 Reload Window。</span></div></div>
+        <div class="editor-preview" aria-label="VS Code 远程 Codex 插件场景示意">
+          <div class="editor-title"><span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span><span>research-project</span><span class="preview-label">场景示意</span></div>
+          <div class="editor-body"><div class="editor-code"><span class="file-label">main.py</span><pre><span class="code-purple">def</span> create():
+    idea = <span class="code-orange">"something great"</span>
+    <span class="code-purple">return</span> idea
+
+<span class="code-muted"># 把时间，留给创造。</span></pre></div><div class="editor-chat"><div class="chat-heading"><span class="codex-mark" aria-hidden="true">C›</span>Codex</div><p class="chat-question">帮我理解这个项目</p><p class="chat-answer">一起从项目结构开始。</p><span class="answer-line"></span><span class="answer-line short"></span><span class="chat-ready"><i></i>准备好，继续创造。</span></div></div>
+          <div class="editor-status"><span>↔ SSH: research-server</span><span>网络经 Bridge 接入</span></div>
+        </div>
+      </div>
+      <div class="scenario" id="panel-cli" role="tabpanel" aria-labelledby="tab-cli" tabindex="0">
+        <div class="scenario-copy"><span class="scenario-kicker">CODEX CLI</span><h3>习惯命令行，<br>就在服务器接着用。</h3><p>在远程终端启动 Codex CLI。项目和计算留在服务器，网络请求交给 Mac 的本机代理。</p><div class="mode-instruction"><strong>选择「终端与其他程序」账号全局模式</strong><span>应用后打开新终端，再启动 Codex CLI。</span></div><p class="scope-note">会配置当前账号的终端及 Git 代理；已有终端需刷新环境。</p></div>
+        <div class="terminal-preview" aria-label="服务器 Codex CLI 场景示意"><div class="terminal-title"><span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span><span>researcher@research-server</span><span class="preview-label">场景示意</span></div><pre><span class="terminal-green">~/research-project</span>
+<span class="terminal-muted">❯</span> codex
+
+<span class="terminal-blue">› 帮我梳理这个项目</span>
+
+<span class="terminal-muted">代码在远方。
+灵感，就在这里。</span><span class="terminal-cursor" aria-hidden="true"></span></pre><div class="terminal-footer"><i></i>通过 Mac 本机代理访问网络</div></div>
+      </div>
+      <div class="supporting-features" aria-label="其他功能">
+        <article><svg class="icon" aria-hidden="true"><use href="#i-terminal"/></svg><div><h3>内置 SSH 终端</h3><p>多个会话，一个窗口。</p></div></article>
+        <article><svg class="icon" aria-hidden="true"><use href="#i-refresh"/></svg><div><h3>自动重连</h3><p>开启后，网络恢复时尝试重连。</p></div></article>
+        <article><svg class="icon" aria-hidden="true"><use href="#i-pulse"/></svg><div><h3>诊断与恢复</h3><p>检查连接，按需从备份恢复配置。</p></div></article>
+      </div>
+    </section>
+
+    <section class="how section" id="how" aria-labelledby="how-heading">
+      <div class="container"><div class="section-heading"><p class="eyebrow">02 / 三步，轻松上手</p><h2 id="how-heading">你负责开始。<br class="mobile-break">连接，交给 Bridge。</h2></div>
+        <ol class="steps">
+          <li><span class="step-number" aria-hidden="true">01</span><h3>选服务器</h3><p>读取已有 SSH 配置，<br>也可以手动添加一台。</p></li>
+          <li><span class="step-number" aria-hidden="true">02</span><h3>连接通道</h3><p>点击连接，通过 SSH<br>接入 Mac 的本机代理。</p></li>
+          <li><span class="step-number" aria-hidden="true">03</span><h3>应用配置</h3><p>按插件或 CLI 选择模式，<br>重载窗口或打开新终端。</p></li>
+        </ol>
+        <p class="how-note">使用前，需要可用的本机代理、SSH 连接，以及已安装并登录的 Codex。<a href="#requirements">查看环境要求 <span aria-hidden="true">↗</span></a></p>
+      </div>
+    </section>
+
+    <section class="availability section container" id="availability" aria-labelledby="availability-heading">
+      <div class="availability-card">
+        <div class="availability-copy"><p class="eyebrow">03 / 好的连接，值得认真打磨</p><h2 id="availability-heading">让连接更简单。<br>我们正在把它做好。</h2><div class="availability-product"><img src="assets/app-icon.png" alt="" width="48" height="48" loading="lazy"><div><strong>Codex Bridge</strong><span>为 Mac 而生</span></div></div></div>
+        <div class="development-status"><span class="development-badge"><i aria-hidden="true"></i>开发中</span><p>暂未开放下载</p></div>
+        <p class="release-note">软件仍在完善中。当前网站仅展示产品功能与交互示意，暂不提供安装包。</p>
+      </div>
+      <div class="faq" aria-labelledby="faq-heading"><h2 id="faq-heading">关于 Codex Bridge</h2>
+        <details id="requirements"><summary>需要准备什么？<span aria-hidden="true">＋</span></summary><div class="faq-body"><p><strong>Mac：</strong>Apple Silicon 芯片、macOS 13+，以及可用的 HTTP / Mixed 代理。纯 VPN / TUN 需另行提供 HTTP / Mixed 入口。</p><p><strong>服务器：</strong>Linux / macOS、Python 3.8+，允许 SSH 远程端口转发。使用 VS Code 配置功能需安装标准 VS Code Server。</p><p>Codex 插件或 CLI 需自行安装并登录。Bridge 负责网络连接，不提供代理服务或 Codex 账号。</p></div></details>
+        <details><summary>多台服务器、多台 Mac，也能用吗？<span aria-hidden="true">＋</span></summary><div class="faq-body"><p>支持多服务器独立配置，沿用 SSH 密钥、密码和跳板机。多台 Mac 可为同一服务器账号提供网络出口，也可以共享暂停代理转发。</p><p>账号全局模式只配置当前服务器账号及支持标准代理的程序，不是整机 VPN；已有进程、容器和后台服务需要分别处理。</p></div></details>
+        <details><summary>关掉窗口，或者合上 Mac，会怎样？<span aria-hidden="true">＋</span></summary><div class="faq-body"><p>关闭窗口后，连接继续由菜单栏维护；退出 App 会结束本机终端和代理通道。Mac 睡眠或离线时，需要另一台已连接的 Mac 继续提供出口。</p><p>自动重连不会重放之前的请求。长期运行的终端任务建议使用 tmux 等工具。</p></div></details>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer container"><a class="brand" href="#main"><svg class="icon" aria-hidden="true"><use href="#i-bridge"/></svg>Codex Bridge</a><p>让连接退后，让创造向前。</p><a href="#availability">产品开发中</a></footer>
+</body>
+</html>
